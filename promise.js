@@ -26,6 +26,15 @@
 
         // 
         #resolve(val) {
+            // 处理cb返回值是Promise的情况
+            if (val&&(typeof val === 'object'|| typeof val === 'function')) {
+                const then = val.then;
+                if (typeof then === 'function') {
+                    then.call(val, this.#resolve.bind(this))
+                    return
+                }
+            }
+
             this.state = 'fulfilled';
             this.val = val;
             this.callbacks.forEach(oCb => this.#then(oCb));
