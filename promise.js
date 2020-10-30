@@ -90,7 +90,8 @@
         =============================================*/
 
         static resolve() {}
-        static reject() {}
+        static reject() { }
+        
         static allSettled() {}
         static all() {}
         static any() {}
@@ -116,7 +117,10 @@
         return 1
     }).then(res => {
         console.log(res);
-    });
+    }).finally(() => {
+        debugger
+        console.log('finally')
+    })
     $p.then(res => {
         throw 'catch'
     }).catch(err => console.log(err))
